@@ -3,6 +3,7 @@ package com.adsizzler.mangolaa.impressions.handler
 import com.adsizzler.mangolaa.impressions.constants.HttpHeaderValues
 import com.adsizzler.mangolaa.impressions.domain.Impression
 import com.adsizzler.mangolaa.impressions.domain.enums.OpenRtbVersion
+import com.adsizzler.mangolaa.impressions.exception.MandatoryMacroMissingException
 import com.adsizzler.mangolaa.impressions.service.ImpressionService
 import com.adsizzler.mangolaa.impressions.service.PixelImageService
 import groovy.util.logging.Slf4j
@@ -49,6 +50,10 @@ class ImpressionAndBillingHandler implements Handler<RoutingContext> {
         def campaignId = req.getParam('camp_id') as Integer
         def advId = req.getParam('adv_id') as Integer
         def clientId = req.getParam('cl_id') as Integer
+
+        if(anyNull(creativeId, campaignId, sourceId, advId, clientId)){
+            throw new MandatoryMacroMissingException('One or more mandatory macros are missing')
+        }
 
         log.debug 'CreativeId {}', creativeId
         log.debug 'Source Id {}', sourceId
@@ -109,4 +114,20 @@ class ImpressionAndBillingHandler implements Handler<RoutingContext> {
         impressionService.pushToKafka(impression)
     }
 
+    //If any object passed is null
+    private static <T> boolean anyNull(T... array){
+        def result = false
+        if(array){
+            for(t in array){
+                if(Objects.isNull(t)){
+                    result = true
+                    break
+                }
+            }
+        }
+        else{
+            result = true
+        }
+        result
+    }
 }

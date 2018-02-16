@@ -1,5 +1,6 @@
 package com.adsizzler.mangolaa.impressions.handler
 
+import com.adsizzler.mangolaa.impressions.exception.MandatoryMacroMissingException
 import com.adsizzler.mangolaa.impressions.util.Json
 import groovy.util.logging.Slf4j
 import io.netty.handler.codec.http.HttpResponseStatus
@@ -25,8 +26,18 @@ class GlobalFailureHandler implements Handler<RoutingContext> {
     void handle(RoutingContext rc) {
         def resp = rc.response()
         def exception = rc.failure()
+        def msg
         log.error '' , exception
-        def responseMsg = Json.encodePretty([msg: GLOBAL_ERROR_MSG])
+        switch (exception){
+            case MandatoryMacroMissingException :
+                msg = exception.message
+                break
+            default :
+                msg = GLOBAL_ERROR_MSG
+
+        }
+
+        def responseMsg = Json.encodePretty([msg: msg])
         resp.putHeader(CONTENT_TYPE, APPLICATION_JSON)
             .setStatusCode(HttpResponseStatus.OK.code())
             .end(responseMsg)

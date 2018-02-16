@@ -5,7 +5,6 @@ import com.adsizzler.mangolaa.impressions.jackson.serializer.OpenRtbVersionSeria
 import com.adsizzler.mangolaa.impressions.jackson.serializer.UUIDSerializer
 import com.adsizzler.mangolaa.impressions.jackson.serializer.ZonedDateTimeSerializer
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import groovy.transform.ToString
 
