@@ -7,11 +7,13 @@ import io.vertx.core.Vertx
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.cache.annotation.EnableCaching
 
 import javax.annotation.PostConstruct
 
 @SpringBootApplication
 @Slf4j
+@EnableCaching
 class ImpressionsApplication {
 
 	static void main(String[] args) {

@@ -20,17 +20,14 @@ enum OpenRtbVersion {
         this.code = code
     }
 
-
     static OpenRtbVersion from(String code){
         def result = UNKNOWN
         if(Strings.hasText(code)){
-            switch(code){
-                case '2.1' : result = VER_2_1; break
-                case '2.2' : result = VER_2_2; break
-                case '2.3' : result = VER_2_3; break
-                case '2.4' : result = VER_2_4; break
-                case '2.5' : result = VER_2_5; break
-                default : result = UNKNOWN
+            for(val in values()){
+                if(val.code.equalsIgnoreCase(code)){
+                    result = val
+                    break
+                }
             }
         }
         result
