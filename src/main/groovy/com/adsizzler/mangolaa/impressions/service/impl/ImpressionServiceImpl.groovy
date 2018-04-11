@@ -5,9 +5,9 @@ import com.adsizzler.mangolaa.impressions.domain.Impression
 import com.adsizzler.mangolaa.impressions.service.ImpressionService
 import com.adsizzler.mangolaa.impressions.util.Assert
 import com.adsizzler.mangolaa.impressions.util.Gzip
+import com.adsizzler.mangolaa.impressions.util.Json
 import groovy.util.logging.Slf4j
 import io.vertx.core.Future
-import io.vertx.core.json.Json
 import io.vertx.kafka.client.producer.KafkaProducer
 import io.vertx.kafka.client.producer.impl.KafkaProducerRecordImpl
 import org.springframework.stereotype.Service

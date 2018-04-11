@@ -44,14 +44,16 @@ class ImpressionAndBillingHandler implements Handler<RoutingContext> {
         def req = rc.request()
         def resp = rc.response()
 
-        //From path params
-        def creativeId = req.getParam('cr_id') as Integer
-        def sourceId = req.getParam('src_id') as Integer
-        def campaignId = req.getParam('camp_id') as Integer
-        def advId = req.getParam('adv_id') as Integer
-        def clientId = req.getParam('cl_id') as Integer
+        def queryParams = req.params()
 
-        if(anyNull(creativeId, campaignId, sourceId, advId, clientId)){
+        def creativeId = queryParams.get('cr_id') as Integer
+        def sourceId = queryParams.get('src_id') as Integer
+        def campaignId = queryParams.get('camp_id') as Integer
+        def advId = queryParams.get('adv_id') as Integer
+        def clientId = queryParams.get('cl_id') as Integer
+        def userId = queryParams.get('user_id')
+
+        if(anyNull(creativeId, campaignId, sourceId, advId, clientId, userId)){
             throw new MandatoryMacroMissingException('One or more mandatory macros are missing')
         }
 
@@ -61,7 +63,6 @@ class ImpressionAndBillingHandler implements Handler<RoutingContext> {
         log.debug 'Adv Id {}', advId
         log.debug 'Client Id {}', clientId
 
-        def queryParams = req.params()
 
         //Macros from Query param
         def openRtbVer = OpenRtbVersion.from(queryParams.get('open_rtb'))
@@ -97,6 +98,7 @@ class ImpressionAndBillingHandler implements Handler<RoutingContext> {
                 advId : advId,
                 clientId : clientId,
                 sourceId : sourceId,
+                userId : userId,
                 openRtbVer : openRtbVer,
                 bidReqId : bidReqId,
                 bidRespId : bidRespId,

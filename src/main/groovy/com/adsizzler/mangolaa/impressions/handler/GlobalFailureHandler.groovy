@@ -34,7 +34,6 @@ class GlobalFailureHandler implements Handler<RoutingContext> {
                 break
             default :
                 msg = GLOBAL_ERROR_MSG
-
         }
 
         def responseMsg = Json.encodePretty([msg: msg])

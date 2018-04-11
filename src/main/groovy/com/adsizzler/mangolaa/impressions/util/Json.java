@@ -20,19 +20,6 @@ public class Json {
     }
 
     /**
-     * Convert JSON to POJO
-     * @param json The JSON to deserialize to a POJO
-     * @param clazz The Class that the JSON will be deserialized to a POJO
-     * @return An instance of class T
-     * @throws Exception
-     */
-    public static <T> T toObject(final String json, final Class<T> clazz) throws Exception {
-        Assert.notNull(clazz, "clazz cannot be null");
-        return objectMapper
-                .readValue(json, clazz);
-    }
-
-    /**
      * Serialize a POJO/Map to JSON String
      * @param object The Object to convert to a JSON string
      * @return The JSON representation of @param object

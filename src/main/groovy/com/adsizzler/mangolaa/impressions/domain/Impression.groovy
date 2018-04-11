@@ -34,11 +34,17 @@ class Impression {
     @JsonProperty(value = "creativeId", required = true)
     final Integer creativeId
 
+    @JsonProperty(value = "advId", required = true)
+    final Integer advId
+
     @JsonProperty(value = "clientId", required = true)
     final Integer clientId
 
     @JsonProperty(value = "srcId", required = true)
     final Integer sourceId
+
+    @JsonProperty(value = "userId", required = true)
+    final String userId
 
     @JsonProperty(value = 'bidReqId')
     final String bidReqId
@@ -80,6 +86,7 @@ class Impression {
         this.clientId = fields['clientId'] as Integer
         this.sourceId = fields['sourceId'] as Integer
         this.bidReqId = fields['bidReqId'] as String
+        this.userId = fields['userId'] as String
         this.bidRespUuid = fields['bidRespUuid'] as String
         this.winUuid = fields['winUuid'] as String
         this.impId = fields['impId'] as String
@@ -89,6 +96,7 @@ class Impression {
         this.price = fields['price'] as Double
         this.mbr = fields['mbr'] as Double
         this.lossCode = fields['lossCode'] as Integer
+        this.advId = fields['advId'] as Integer
     }
 
 }
